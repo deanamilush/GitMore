@@ -13,9 +13,6 @@ import kotlinx.android.synthetic.main.user_item.view.*
 
 class FollowersAdapter(private val listUser: ArrayList<UserData>) : RecyclerView.Adapter<FollowersAdapter.ListViewHolder>() {
     lateinit var mcontext: Context
-    /*init {
-        followersFilterList = listUser
-    }*/
 
     private var onItemClickCallback: OnItemClickCallback? = null
 

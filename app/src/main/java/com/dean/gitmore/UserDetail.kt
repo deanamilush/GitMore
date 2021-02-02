@@ -1,6 +1,5 @@
 package com.dean.gitmore
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -46,6 +45,8 @@ class UserDetail : AppCompatActivity() {
         detail_username.text = dataUser.username
         detail_company.text = dataUser.company
         detail_location.text = dataUser.location
+        user_followers.text = dataUser.followers
+        user_following.text = dataUser.following
         detail_repository.text = dataUser.repository
         Glide.with(this)
             .load(dataUser.avatar)

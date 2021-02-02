@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
         val client = AsyncHttpClient()
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token aa56967ab24d75710b13ee795c537c02c2b3317c")
+        client.addHeader("Authorization", "token da939413828ac4fbf0d5e463719ab5e99258f7d2")
         val url = "https://api.github.com/users"
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
         val client = AsyncHttpClient()
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token aa56967ab24d75710b13ee795c537c02c2b3317c")
+        client.addHeader("Authorization", "token da939413828ac4fbf0d5e463719ab5e99258f7d2")
         val url = "https://api.github.com/search/users?q=$id"
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -169,7 +169,7 @@ class MainActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
         val client = AsyncHttpClient()
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token aa56967ab24d75710b13ee795c537c02c2b3317c")
+        client.addHeader("Authorization", "token da939413828ac4fbf0d5e463719ab5e99258f7d2")
         val url = "https://api.github.com/users/$id"
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
