@@ -4,30 +4,27 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dean.gitmore.databinding.ActivityMainBinding
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
-import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_main.*
-import org.json.JSONArray
-import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
     private var listData: ArrayList<UserData> = ArrayList()
     private lateinit var adapter: UserAdapter
     private lateinit var binding: ActivityMainBinding
+    private lateinit var mainViewModel: MainViewModel
 
     companion object {
-        private val TAG = MainActivity::class.java.simpleName
+        val TAG = MainActivity::class.java.simpleName
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,23 +38,29 @@ class MainActivity : AppCompatActivity() {
         recycleView.layoutManager = LinearLayoutManager(recycleView.context)
         recycleView.setHasFixedSize(true)
         recycleView.addItemDecoration(
-            DividerItemDecoration(
-                recycleView.context,
-                DividerItemDecoration.VERTICAL
-            )
+            DividerItemDecoration(recycleView.context, DividerItemDecoration.VERTICAL)
         )
 
+        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())
+                .get(MainViewModel::class.java)
+        configViewModel(adapter)
+
         searchUser()
+        showList()
         getUser()
     }
 
-    private fun searchUser() { search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+    private fun searchUser() {
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String): Boolean {
-            if (query.isEmpty()) {
-                return true
-            } else {
+            if (query.isNotEmpty()) {
                 listData.clear()
-                getUserSearch(query)
+                showList()
+                mainViewModel.getUserSearch(query, applicationContext)
+                showLoading(true)
+                configViewModel(adapter)
+            } else {
+             return true
             }
             return true
         }
@@ -69,6 +72,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getUser() {
+        mainViewModel.getUser(applicationContext)
+        showLoading(true)
+    }
+
+    /*private fun getUser() {
         progressBar.visibility = View.VISIBLE
         val client = AsyncHttpClient()
         client.addHeader("User-Agent", "request")
@@ -218,7 +226,7 @@ class MainActivity : AppCompatActivity() {
                     .show()
             }
         })
-    }
+    }*/
 
     private fun showList() {
         recycleView.layoutManager = LinearLayoutManager(this)
@@ -228,6 +236,15 @@ class MainActivity : AppCompatActivity() {
         listDataAdapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
             override fun onItemClicked(dataUsers: UserData) {
                 showDetailUser(dataUsers)
+            }
+        })
+    }
+
+    private fun configViewModel(adapter: UserAdapter) {
+        mainViewModel.getListUsers().observe(this, Observer { listUsers ->
+            if (listUsers != null) {
+                adapter.setData(listUsers)
+                showLoading(false)
             }
         })
     }
@@ -250,8 +267,7 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(
             this,
             "${dataUser.name}",
-            Toast.LENGTH_SHORT
-        ).show()
+            Toast.LENGTH_SHORT ).show()
 
     }
 
@@ -266,5 +282,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(mIntent)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.INVISIBLE
+        }
     }
 }

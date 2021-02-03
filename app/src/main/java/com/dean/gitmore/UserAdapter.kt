@@ -22,6 +22,12 @@ class UserAdapter(private var listData: ArrayList<UserData>) : RecyclerView.Adap
         this.onItemClickCallback = onItemClickCallback
     }
 
+    fun setData(items: ArrayList<UserData>) {
+        listData.clear()
+        listData.addAll(items)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ListViewHolder {
         val view: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.user_item, viewGroup, false)
         val sch = ListViewHolder(view)
