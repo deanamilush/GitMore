@@ -1,4 +1,4 @@
-package com.dean.gitmore
+package com.dean.gitmore.global
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +13,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dean.gitmore.R
+import com.dean.gitmore.adapter.UserAdapter
 import com.dean.gitmore.databinding.ActivityMainBinding
+import com.dean.gitmore.model.UserData
+import com.dean.gitmore.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -260,8 +264,8 @@ class MainActivity : AppCompatActivity() {
             dataUser.followers,
             dataUser.following
         )
-        val intent = Intent(this@MainActivity, UserDetail::class.java)
-        intent.putExtra(UserDetail.EXTRA_DATA, dataUser)
+        val intent = Intent(this@MainActivity, UserDetailActivity::class.java)
+        intent.putExtra(UserDetailActivity.EXTRA_DATA, dataUser)
 
         this@MainActivity.startActivity(intent)
         Toast.makeText(

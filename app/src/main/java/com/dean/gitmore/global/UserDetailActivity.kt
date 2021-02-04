@@ -1,4 +1,4 @@
-package com.dean.gitmore
+package com.dean.gitmore.global
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,9 +7,12 @@ import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import com.bumptech.glide.Glide
+import com.dean.gitmore.R
+import com.dean.gitmore.adapter.SectionsPagerAdapter
+import com.dean.gitmore.model.UserData
 import kotlinx.android.synthetic.main.activity_user_detail.*
 
-class UserDetail : AppCompatActivity() {
+class UserDetailActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"

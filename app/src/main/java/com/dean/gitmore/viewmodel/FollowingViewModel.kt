@@ -1,4 +1,4 @@
-package com.dean.gitmore
+package com.dean.gitmore.viewmodel
 
 import android.content.Context
 import android.util.Log
@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dean.gitmore.fragment.FollowingFragment
+import com.dean.gitmore.model.UserData
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header

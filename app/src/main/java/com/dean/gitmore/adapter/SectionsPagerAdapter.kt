@@ -1,4 +1,4 @@
-package com.dean.gitmore
+package com.dean.gitmore.adapter
 
 import android.content.Context
 import androidx.annotation.Nullable
@@ -6,14 +6,17 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.dean.gitmore.fragment.FollowersFragment
+import com.dean.gitmore.fragment.FollowingFragment
+import com.dean.gitmore.R
 
 class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     companion object {
         @StringRes
         private val TAB_TITLES = intArrayOf(
-            R.string.followers,
-            R.string.following
+                R.string.followers,
+                R.string.following
         )
     }
 

@@ -1,4 +1,4 @@
-package com.dean.gitmore
+package com.dean.gitmore.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

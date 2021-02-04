@@ -1,4 +1,4 @@
-package com.dean.gitmore
+package com.dean.gitmore.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dean.gitmore.R
+import com.dean.gitmore.adapter.FollowingAdapter
+import com.dean.gitmore.model.UserData
+import com.dean.gitmore.viewmodel.FollowingViewModel
 import kotlinx.android.synthetic.main.fragment_following.*
 
 class FollowingFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.dean.gitmore
+package com.dean.gitmore.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,10 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.dean.gitmore.R
+import com.dean.gitmore.model.UserData
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.user_item.view.*
 
-class FollowersAdapter(private val listUser: ArrayList<UserData>) : RecyclerView.Adapter<FollowersAdapter.ListViewHolder>() {
+class FollowingAdapter(private val listUser: ArrayList<UserData>) : RecyclerView.Adapter<FollowingAdapter.ListViewHolder>() {
     lateinit var mcontext: Context
 
     private var onItemClickCallback: OnItemClickCallback? = null
