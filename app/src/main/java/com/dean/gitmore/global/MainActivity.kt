@@ -80,158 +80,6 @@ class MainActivity : AppCompatActivity() {
         showLoading(true)
     }
 
-    /*private fun getUser() {
-        progressBar.visibility = View.VISIBLE
-        val client = AsyncHttpClient()
-        client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token da939413828ac4fbf0d5e463719ab5e99258f7d2")
-        val url = "https://api.github.com/users"
-        client.get(url, object : AsyncHttpResponseHandler() {
-            override fun onSuccess(
-                statusCode: Int,
-                headers: Array<Header>,
-                responseBody: ByteArray
-            ) {
-                progressBar.visibility = View.INVISIBLE
-                val result = String(responseBody)
-                Log.d(TAG, result)
-                try {
-                    val jsonArray = JSONArray(result)
-                    for (i in 0 until jsonArray.length()) {
-                        val jsonObject = jsonArray.getJSONObject(i)
-                        val username: String = jsonObject.getString("login")
-                        getUserDetail(username)
-                    }
-                } catch (e: Exception) {
-                    Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT)
-                        .show()
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onFailure(
-                statusCode: Int,
-                headers: Array<Header>,
-                responseBody: ByteArray,
-                error: Throwable
-            ) {
-                progressBar.visibility = View.INVISIBLE
-                val errorMessage = when (statusCode) {
-                    401 -> "$statusCode : Bad Request"
-                    403 -> "$statusCode : Forbidden"
-                    404 -> "$statusCode : Not Found"
-                    else -> "$statusCode : ${error.message}"
-                }
-                Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_LONG)
-                    .show()
-            }
-        })
-    }
-
-    private fun getUserSearch(id: String) {
-        progressBar.visibility = View.VISIBLE
-        val client = AsyncHttpClient()
-        client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token da939413828ac4fbf0d5e463719ab5e99258f7d2")
-        val url = "https://api.github.com/search/users?q=$id"
-        client.get(url, object : AsyncHttpResponseHandler() {
-            override fun onSuccess(
-                statusCode: Int,
-                headers: Array<Header>,
-                responseBody: ByteArray
-            ) {
-                progressBar.visibility = View.INVISIBLE
-                val result = String(responseBody)
-                Log.d(TAG, result)
-                try {
-                    val jsonArray = JSONObject(result)
-                    val item = jsonArray.getJSONArray("items")
-                    for (i in 0 until item.length()) {
-                        val jsonObject = item.getJSONObject(i)
-                        val username: String = jsonObject.getString("login")
-                        getUserDetail(username)
-                    }
-                } catch (e: Exception) {
-                    Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT)
-                        .show()
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onFailure(
-                statusCode: Int,
-                headers: Array<Header>,
-                responseBody: ByteArray,
-                error: Throwable
-            ) {
-                progressBar.visibility = View.INVISIBLE
-                val errorMessage = when (statusCode) {
-                    401 -> "$statusCode : Bad Request"
-                    403 -> "$statusCode : Forbidden"
-                    404 -> "$statusCode : Not Found"
-                    else -> "$statusCode : ${error.message}"
-                }
-                Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_LONG)
-                    .show()
-            }
-        })
-    }
-
-    private fun getUserDetail(id: String) {
-        progressBar.visibility = View.VISIBLE
-        val client = AsyncHttpClient()
-        client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token da939413828ac4fbf0d5e463719ab5e99258f7d2")
-        val url = "https://api.github.com/users/$id"
-        client.get(url, object : AsyncHttpResponseHandler() {
-            override fun onSuccess(
-                statusCode: Int,
-                headers: Array<Header>,
-                responseBody: ByteArray
-            ) {
-                progressBar.visibility = View.INVISIBLE
-                val result = String(responseBody)
-                Log.d(TAG, result)
-                try {
-                    val jsonObject = JSONObject(result)
-                    val username: String? = jsonObject.getString("login").toString()
-                    val name: String? = jsonObject.getString("name").toString()
-                    val avatar: String? = jsonObject.getString("avatar_url").toString()
-                    val company: String? = jsonObject.getString("company").toString()
-                    val location: String? = jsonObject.getString("location").toString()
-                    val repository: String? = jsonObject.getString("public_repos")
-                    val followers: String? = jsonObject.getString("followers")
-                    val following: String? = jsonObject.getString("following")
-                    listData.add(
-                        UserData(username, name, avatar, company, location, repository, followers, following)
-                    )
-                    showList()
-                } catch (e: Exception) {
-                    Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT)
-                        .show()
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onFailure(
-                statusCode: Int,
-                headers: Array<Header>,
-                responseBody: ByteArray,
-                error: Throwable
-            ) {
-                progressBar.visibility = View.INVISIBLE
-                val errorMessage = when (statusCode) {
-                    401 -> "$statusCode : Bad Request"
-                    403 -> "$statusCode : Forbidden"
-                    404 -> "$statusCode : Not Found"
-                    else -> "$statusCode : ${error.message}"
-                }
-                Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_LONG)
-                    .show()
-            }
-        })
-    }*/
-
     private fun showList() {
         recycleView.layoutManager = LinearLayoutManager(this)
         val listDataAdapter = UserAdapter(listData)
@@ -284,6 +132,10 @@ class MainActivity : AppCompatActivity() {
         if (item.itemId == R.id.action_change_settings) {
             val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
             startActivity(mIntent)
+        }
+       if(item.itemId == R.id.favorite_menu) {
+            val move = Intent(this, FavoriteActivity::class.java)
+            startActivity(move)
         }
         return super.onOptionsItemSelected(item)
     }
