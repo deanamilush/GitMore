@@ -20,6 +20,12 @@ class FollowingAdapter(private val listUser: ArrayList<UserData>) : RecyclerView
         this.onItemClickCallback = onItemClickCallback
     }
 
+    fun setData(items: ArrayList<UserData>) {
+        listUser.clear()
+        listUser.addAll(items)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ListViewHolder {
         val view: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.user_item, viewGroup, false)
         val sch = ListViewHolder(view)
