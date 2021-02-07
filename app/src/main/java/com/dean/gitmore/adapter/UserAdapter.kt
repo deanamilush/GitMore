@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dean.gitmore.R
 import com.dean.gitmore.model.UserData
-import com.dean.gitmore.global.UserDetailActivity
+import com.dean.gitmore.global.DetailUserActivity
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.user_item.view.*
 import kotlin.collections.ArrayList
@@ -57,8 +57,8 @@ class UserAdapter(private var listData: ArrayList<UserData>) : RecyclerView.Adap
                 data.followers,
                 data.following
             )
-            val intentDetail = Intent(mcontext, UserDetailActivity::class.java)
-            intentDetail.putExtra(UserDetailActivity.EXTRA_DATA, dataUser)
+            val intentDetail = Intent(mcontext, DetailUserActivity::class.java)
+            intentDetail.putExtra(DetailUserActivity.EXTRA_DATA, dataUser)
             mcontext.startActivity(intentDetail)
         }
     }

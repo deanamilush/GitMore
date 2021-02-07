@@ -1,6 +1,5 @@
 package com.dean.gitmore.adapter
 
-import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -9,20 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dean.gitmore.R
-import com.dean.gitmore.global.UserDetailActivity
+import com.dean.gitmore.global.DetailUserActivity
+import com.dean.gitmore.global.FavoriteActivity
 import com.dean.gitmore.model.Favorite
 import com.dean.gitmore.model.UserData
 import kotlinx.android.synthetic.main.user_item.view.*
 import java.util.ArrayList
 
-class FavoriteAdapter(private val activity: Activity) :
-    RecyclerView.Adapter<FavoriteAdapter.ListViewHolder>()  {
-
-    private var onItemClickCallback: FollowersAdapter.OnItemClickCallback? = null
-
-    fun setOnItemClickCallback(onItemClickCallback: FollowersAdapter.OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
+class FavoriteAdapter(favoriteActivity: FavoriteActivity) : RecyclerView.Adapter<FavoriteAdapter.ListViewHolder>()  {
 
     var listFavorite = ArrayList<Favorite>()
         set(listFavorite) {
@@ -41,6 +34,7 @@ class FavoriteAdapter(private val activity: Activity) :
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bind(listFavorite[position])
+
         val data = listFavorite[position]
         holder.itemView.setOnClickListener {
             val dataUser = UserData(
@@ -53,8 +47,8 @@ class FavoriteAdapter(private val activity: Activity) :
                 data.followers,
                 data.following
             )
-            val mIntent = Intent(it.context, UserDetailActivity::class.java)
-            mIntent.putExtra(UserDetailActivity.EXTRA_DATA, dataUser)
+            val mIntent = Intent(it.context, DetailUserActivity::class.java)
+            mIntent.putExtra(DetailUserActivity.EXTRA_DATA, dataUser)
             it.context.startActivity(mIntent)
         }
     }
@@ -62,6 +56,7 @@ class FavoriteAdapter(private val activity: Activity) :
     override fun getItemCount(): Int = this.listFavorite.size
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         fun bind(fav: Favorite) {
             with(itemView) {
                 Glide.with(itemView.context)

@@ -9,7 +9,8 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/action_change_settings"
-        android:title="@string/change_language_settings"
-        app:showAsAction="never"/>
+        android:id="@+id/setting_menu"
+        android:icon="@drawable/ic_baseline_settings"
+        android:title="@string/title_activity_settings"
+        app:showAsAction="ifRoom" />
 </menu>

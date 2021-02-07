@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">ConsumerApp</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="location">Location </string>
+    <string name="repository">Repository</string>
+    <string name="company">Company </string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="avatar">Avatar</string>
+    <string name="change_language_settings">Change Language Settings</string>
+    <string name="replace">##</string>
+    <string name="detail_user">Detail User</string>
+    <string name="title_menu_favorite">Favorite</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="daily_message">Look Your New Friend on Github</string>
+</resources>

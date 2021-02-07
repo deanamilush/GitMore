@@ -24,7 +24,7 @@ class DatabaseContract {
             const val FAVORITE = "isFav"
 
             val CONTENT_URI: Uri = Uri.Builder().scheme(SCHEME).authority(AUTHORITY).appendPath(
-                TABLE_NAME
+                    TABLE_NAME
             ).build()
         }
     }

@@ -38,17 +38,7 @@ object UserMapping {
                     getString(getColumnIndexOrThrow(FAVORITE))
 
                 favList.add(
-                    Favorite(
-                        username,
-                        name,
-                        avatar,
-                        company,
-                        location,
-                        repository,
-                        followers,
-                        following,
-                        isFav
-                    )
+                    Favorite(username, name, avatar, company, location, repository, followers, following, isFav)
                 )
             }
         }

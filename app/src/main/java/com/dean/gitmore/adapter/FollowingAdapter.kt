@@ -43,9 +43,6 @@ class FollowingAdapter(private val listUser: ArrayList<UserData>) : RecyclerView
             .into(holder.imgAvatar)
         holder.txtUsername.text = data.username
         holder.txtName.text = data.name
-        holder.itemView.setOnClickListener {
-            //DO NOTHING
-        }
     }
 
     interface OnItemClickCallback {

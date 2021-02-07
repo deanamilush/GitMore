@@ -3,7 +3,6 @@ package com.dean.gitmore.global
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -112,8 +111,8 @@ class MainActivity : AppCompatActivity() {
             dataUser.followers,
             dataUser.following
         )
-        val intent = Intent(this@MainActivity, UserDetailActivity::class.java)
-        intent.putExtra(UserDetailActivity.EXTRA_DATA, dataUser)
+        val intent = Intent(this@MainActivity, DetailUserActivity::class.java)
+        intent.putExtra(DetailUserActivity.EXTRA_DATA, dataUser)
 
         this@MainActivity.startActivity(intent)
         Toast.makeText(
@@ -129,13 +128,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_change_settings) {
-            val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-            startActivity(mIntent)
-        }
-       if(item.itemId == R.id.favorite_menu) {
-            val move = Intent(this, FavoriteActivity::class.java)
-            startActivity(move)
+        when (item.itemId) {
+            R.id.favorite_menu -> {
+                val move = Intent(this, FavoriteActivity::class.java)
+                startActivity(move)
+            }
+            R.id.setting_menu -> {
+                val move = Intent(this, SettingsActivity::class.java)
+                startActivity(move)
+            }
         }
         return super.onOptionsItemSelected(item)
     }

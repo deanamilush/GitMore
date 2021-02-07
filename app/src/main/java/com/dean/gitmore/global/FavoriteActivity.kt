@@ -41,6 +41,8 @@ class FavoriteActivity : AppCompatActivity() {
         adapter = FavoriteAdapter(this)
         recycleViewFav.adapter = adapter
 
+        loadListFavourite()
+
         val handleThread = HandlerThread("DataObserver")
         handleThread.start()
         val handler = Handler(handleThread.looper)
@@ -50,7 +52,7 @@ class FavoriteActivity : AppCompatActivity() {
             }
         }
 
-//        contentResolver.registerContentObserver(CONTENT_URI, true, myObserver)
+        contentResolver.registerContentObserver(CONTENT_URI, true, myObserver)
 
         if (savedInstanceState == null) {
             loadListFavourite()

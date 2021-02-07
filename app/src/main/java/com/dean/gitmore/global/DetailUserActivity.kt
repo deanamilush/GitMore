@@ -1,13 +1,9 @@
 package com.dean.gitmore.global
 
 import android.content.ContentValues
-import android.content.Intent
 import android.database.Cursor
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -27,7 +23,7 @@ import com.dean.gitmore.db.UserHelper
 import com.dean.gitmore.model.UserData
 import kotlinx.android.synthetic.main.activity_user_detail.*
 
-class UserDetailActivity : AppCompatActivity(), View.OnClickListener {
+class DetailUserActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
@@ -40,24 +36,19 @@ class UserDetailActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_detail)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.detail_user)
 
         dbHelper = UserHelper.getInstance(applicationContext)
         dbHelper.open()
 
-        val usernameVal = intent.getParcelableExtra<UserData>(EXTRA_DATA) as UserData
-        val cursor: Cursor = dbHelper.queryByUsername(usernameVal.username.toString())
+        val user = intent.getParcelableExtra<UserData>(EXTRA_DATA) as UserData
+        val cursor: Cursor = dbHelper.queryByUsername(user.username.toString())
         if (cursor.moveToNext()) {
             statusFavorite = true
             setStatusFavorite(true)
         }
 
-        if (supportActionBar != null) {
-            supportActionBar?.title = getString(R.string.detail_user)
-        }
-
-        setData()
-        fab_favorite.setOnClickListener(this)
+        fabFavorite.setOnClickListener(this)
 
         setData()
         viewPagerConfig()
@@ -65,9 +56,9 @@ class UserDetailActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setStatusFavorite(status: Boolean) {
         if (status) {
-            fab_favorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+            fabFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
         } else {
-            fab_favorite.setImageResource(R.drawable.ic_baseline_unfavorite_24)
+            fabFavorite.setImageResource(R.drawable.ic_baseline_unfavorite_24)
         }
     }
 
@@ -86,6 +77,7 @@ class UserDetailActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+
     private fun setData() {
         val dataUser = intent.getParcelableExtra<UserData>(EXTRA_DATA) as UserData
         dataUser.name?.let { setActionBarTitle(it) }
@@ -101,23 +93,10 @@ class UserDetailActivity : AppCompatActivity(), View.OnClickListener {
             .into(detail_avatar)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_change_settings) {
-            val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-            startActivity(mIntent)
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onClick(v: View?) {
         val data = intent.getParcelableExtra<UserData>(EXTRA_DATA) as UserData
         when (v?.id) {
-            R.id.fab_favorite -> {
+            R.id.fabFavorite -> {
                 if (statusFavorite) {
                     val idUser = data.username.toString()
                     dbHelper.deleteById(idUser)
@@ -138,7 +117,7 @@ class UserDetailActivity : AppCompatActivity(), View.OnClickListener {
                     values.put(FAVORITE, "isFav")
 
                     statusFavorite = false
-                //    contentResolver.insert(CONTENT_URI, values)
+                    contentResolver.insert(CONTENT_URI, values)
                     Toast.makeText(this, "Data Added to Favorite", Toast.LENGTH_SHORT).show()
                     setStatusFavorite(true)
                 }
