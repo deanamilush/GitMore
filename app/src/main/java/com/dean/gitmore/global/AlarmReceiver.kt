@@ -37,11 +37,9 @@ class AlarmReceiver: BroadcastReceiver() {
         val channelName = "Daily Notification"
 
         val intent = Intent(context, MainActivity::class.java)
-        val pendingIntent =
-                PendingIntent.getActivity(context, 0, intent, 0)
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
-        val notificationManagerCompat =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManagerCompat = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
         val builder = NotificationCompat.Builder(context, channelID)

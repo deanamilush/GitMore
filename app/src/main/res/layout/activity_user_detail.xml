@@ -200,13 +200,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:minHeight="?actionBarSize"
         android:background="@color/rv"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        app:tabIndicatorFullWidth="false"
-        app:tabIndicatorHeight="2dp"
-        app:tabMode="fixed"
-        app:tabRippleColor="@null" />
+        app:layout_constraintTop_toBottomOf="@+id/view"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"

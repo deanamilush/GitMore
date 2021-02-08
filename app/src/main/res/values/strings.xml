@@ -7,7 +7,6 @@
     <string name="company">Company </string>
     <string name="followers">Followers</string>
     <string name="following">Following</string>
-    <string name="avatar">Avatar</string>
     <string name="change_language_settings">Change Language Settings</string>
     <string name="replace">##</string>
     <string name="detail_user">Detail User</string>
@@ -15,4 +14,7 @@
     <string name="daily_reminder">Daily Reminder</string>
     <string name="title_activity_settings">Settings</string>
     <string name="daily_message">Look Your New Friend on Github</string>
+    <string name="title_splash">Git-More</string>
+    <string name="copyright">Created by Dean Amilush</string>
+    <string name="search">Find People Nearby on Github</string>
 </resources>

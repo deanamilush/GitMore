@@ -21,15 +21,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GitMore">
-        <activity android:name=".global.FavoriteActivity"></activity>
+        <activity android:name=".global.SplashActivity"
+            android:theme="@style/NoActionBar">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".global.FavoriteActivity" />
         <activity android:name=".global.DetailUserActivity" />
         <activity android:name=".global.SettingsActivity" />
         <activity android:name=".global.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <provider

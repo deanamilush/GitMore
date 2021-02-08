@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dean.gitmore.BuildConfig
 import com.dean.gitmore.global.MainActivity
 import com.dean.gitmore.model.UserData
 import com.loopj.android.http.AsyncHttpClient
@@ -18,6 +19,7 @@ class MainViewModel : ViewModel() {
 
     val listAllUser = MutableLiveData<ArrayList<UserData>>()
     private val listNonMutable = ArrayList<UserData>()
+    private val apiKey = BuildConfig.API_KEY
 
     fun getListUsers(): LiveData<ArrayList<UserData>> {
         return listAllUser
@@ -25,8 +27,9 @@ class MainViewModel : ViewModel() {
 
      fun getUser(context: Context) {
         val client = AsyncHttpClient()
+
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token da939413828ac4fbf0d5e463719ab5e99258f7d2")
+        client.addHeader("Authorization", "token $apiKey")
         val url = "https://api.github.com/users"
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -71,7 +74,7 @@ class MainViewModel : ViewModel() {
      fun getUserSearch(query: String, context: Context) {
         val client = AsyncHttpClient()
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token da939413828ac4fbf0d5e463719ab5e99258f7d2")
+        client.addHeader("Authorization", "token $apiKey")
         val url = "https://api.github.com/search/users?q=$query"
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -118,7 +121,7 @@ class MainViewModel : ViewModel() {
      fun getUserDetail(id: String, context: Context) {
         val client = AsyncHttpClient()
         client.addHeader("User-Agent", "request")
-        client.addHeader("Authorization", "token da939413828ac4fbf0d5e463719ab5e99258f7d2")
+        client.addHeader("Authorization", "token $apiKey")
         val url = "https://api.github.com/users/$id"
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
