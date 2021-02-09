@@ -16,23 +16,57 @@ import com.dean.gitmore.R
 import java.util.*
 
 class AlarmReceiver: BroadcastReceiver() {
+
     companion object {
-        const val TYPE_REPEATING = "repeat"
+        const val TYPE_DAILY = "Daily Reminder"
         const val EXTRA_MESSAGE = "message"
         const val EXTRA_TYPE = "type"
 
-        private const val ID_REPEAT = 1234
+        private const val ID_DAILY = 100
+        private const val TIME_DAILY = "09:51"
     }
 
     override fun onReceive(context: Context, intent: Intent) {
-        val type = intent.getStringExtra(EXTRA_TYPE)
-        val notificationId =
-                if (type.equals(TYPE_REPEATING, ignoreCase = true)) ID_REPEAT else return
-        val message = intent.getStringExtra(EXTRA_MESSAGE) as String
-        showAlarmNotification(context, message, notificationId)
+        val message = intent.getStringExtra(EXTRA_MESSAGE)
+        showAlarmNotification(context, message)
     }
 
-    private fun showAlarmNotification(context: Context, message: String, notificationId: Int) {
+    fun setDailyAlarm(context: Context, type: String, message: String) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlarmReceiver::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.putExtra(EXTRA_MESSAGE, message)
+        intent.putExtra(EXTRA_TYPE, type)
+        val timeArray =
+                TIME_DAILY.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]))
+        calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]))
+        calendar.set(Calendar.SECOND, 0)
+        val pendingIntent = PendingIntent.getBroadcast(
+                context,
+                ID_DAILY, intent, PendingIntent.FLAG_ONE_SHOT
+        )
+        alarmManager.setInexactRepeating(
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                AlarmManager.INTERVAL_DAY,
+                pendingIntent
+        )
+        Toast.makeText(context, context.getString(R.string.activated_reminder), Toast.LENGTH_SHORT).show()
+    }
+
+    fun cancelAlarm(context: Context) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlarmReceiver::class.java)
+        val requestCode = ID_DAILY
+        val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0)
+        pendingIntent.cancel()
+        alarmManager.cancel(pendingIntent)
+        Toast.makeText(context, context.getString(R.string.reminder_canceled), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showAlarmNotification(context: Context, message: String?) {
         val channelID = "DAM1"
         val channelName = "Daily Notification"
 
@@ -62,64 +96,6 @@ class AlarmReceiver: BroadcastReceiver() {
         }
 
         val notificationBuilder = builder.build()
-        notificationManagerCompat.notify(notificationId, notificationBuilder)
-    }
-
-    fun setDailyAlarm(context: Context, type: String, message: String) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-        val intent = Intent(context, AlarmReceiver::class.java).apply {
-            putExtra(EXTRA_MESSAGE, message)
-            putExtra(EXTRA_TYPE, type)
-        }
-
-        val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEAT, intent, 0)
-        val calendar = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, 9)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-        }
-
-        val different = calendar.timeInMillis - System.currentTimeMillis()
-        if (different > 0) {
-            alarmManager.setInexactRepeating(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.timeInMillis,
-                    AlarmManager.INTERVAL_DAY,
-                    pendingIntent
-            )
-        } else {
-            val time = System.currentTimeMillis() + AlarmManager.INTERVAL_DAY - different
-            alarmManager.setInexactRepeating(
-                    AlarmManager.RTC_WAKEUP,
-                    time,
-                    AlarmManager.INTERVAL_DAY,
-                    pendingIntent
-            )
-        }
-
-        Toast.makeText(context, "Daily Reminder Activated", Toast.LENGTH_SHORT).show()
-    }
-
-    fun cancelAlarm(context: Context, type: String) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, AlarmReceiver::class.java)
-        val reqCode = if (type.equals(TYPE_REPEATING, ignoreCase = true)) ID_REPEAT else 0
-        val pendingIntent = PendingIntent.getBroadcast(context, reqCode, intent, 0)
-
-        pendingIntent.cancel()
-        alarmManager.cancel(pendingIntent)
-        Toast.makeText(context, "Daily Reminder Canceled", Toast.LENGTH_SHORT).show()
-    }
-
-    fun isAlarmSet(context: Context, type: String): Boolean {
-        val intent = Intent(context, AlarmReceiver::class.java)
-        val reqCode = if (type.equals(TYPE_REPEATING, ignoreCase = true)) ID_REPEAT else 0
-        return PendingIntent.getBroadcast(
-                context,
-                reqCode,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        ) != null
+        notificationManagerCompat.notify(100, notificationBuilder)
     }
 }

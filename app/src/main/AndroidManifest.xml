@@ -35,6 +35,11 @@
         <activity android:name=".global.MainActivity">
         </activity>
 
+        <receiver
+            android:name=".global.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"/>
+
         <provider
             android:name=".db.FavoriteProvider"
             android:authorities="com.dean.gitmore"

@@ -18,4 +18,6 @@
     <string name="title_splash">Git-More</string>
     <string name="copyright">Dibuat oleh Dean Amilush</string>
     <string name="search">Temukan Orang Sekitar di Github</string>
+    <string name="activated_reminder">Pengingat Harian Aktif</string>
+    <string name="reminder_canceled">Pengingat Harian Batal</string>
 </resources>

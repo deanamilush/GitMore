@@ -17,4 +17,6 @@
     <string name="title_splash">Git-More</string>
     <string name="copyright">Created by Dean Amilush</string>
     <string name="search">Find People Nearby on Github</string>
+    <string name="activated_reminder">Daily Reminder Activated</string>
+    <string name="reminder_canceled">Daily Reminder Canceled</string>
 </resources>

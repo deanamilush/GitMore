@@ -40,11 +40,11 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
             if (isChecked) {
                 alarmReceiver.setDailyAlarm(
                         applicationContext,
-                        AlarmReceiver.TYPE_REPEATING,
+                        AlarmReceiver.TYPE_DAILY,
                         getString(R.string.daily_message)
                 )
             } else {
-                alarmReceiver.cancelAlarm(applicationContext, AlarmReceiver.TYPE_REPEATING)
+                alarmReceiver.cancelAlarm(applicationContext)
             }
             saveChange(isChecked)
         }
