@@ -19,4 +19,6 @@
     <string name="search">Find People Nearby on Github</string>
     <string name="activated_reminder">Daily Reminder Activated</string>
     <string name="reminder_canceled">Daily Reminder Canceled</string>
+    <string name="delete_favorite">Data Deleted from Favorite</string>
+    <string name="add_favorite">Data Added to Favorite</string>
 </resources>

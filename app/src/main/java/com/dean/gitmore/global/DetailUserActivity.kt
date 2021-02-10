@@ -100,7 +100,7 @@ class DetailUserActivity : AppCompatActivity(), View.OnClickListener {
                 if (statusFavorite) {
                     val idUser = data.username.toString()
                     dbHelper.deleteById(idUser)
-                    Toast.makeText(this, "Data Deleted from Favorite", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.delete_favorite), Toast.LENGTH_SHORT).show()
                     setStatusFavorite(false)
                     statusFavorite = true
                 } else {
@@ -118,7 +118,7 @@ class DetailUserActivity : AppCompatActivity(), View.OnClickListener {
 
                     statusFavorite = false
                     contentResolver.insert(CONTENT_URI, values)
-                    Toast.makeText(this, "Data Added to Favorite", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.add_favorite), Toast.LENGTH_SHORT).show()
                     setStatusFavorite(true)
                 }
             }

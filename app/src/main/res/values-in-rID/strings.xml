@@ -20,4 +20,6 @@
     <string name="search">Temukan Orang Sekitar di Github</string>
     <string name="activated_reminder">Pengingat Harian Aktif</string>
     <string name="reminder_canceled">Pengingat Harian Batal</string>
+    <string name="delete_favorite">Data telah di hapus</string>
+    <string name="add_favorite">Data telah di tambahkan</string>
 </resources>
